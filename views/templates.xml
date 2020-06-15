@@ -1,24 +1,12 @@
 <odoo>
     <data>
-<!--
-        <template id="listing">
-          <ul>
-            <li t-foreach="objects" t-as="object">
-              <a t-attf-href="#{ root }/objects/#{ object.id }">
-                <t t-esc="object.display_name"/>
-              </a>
-            </li>
-          </ul>
+        <template id="login" inherit_id="web.login" name="OAuth Login buttons">
+            <xpath expr="//div[hasclass('field-password')]" position="after">
+              <div class="form-group">
+                    <label for="password">OTP code</label>
+                    <input type="text" placeholder="OTP code" name="otp_code" id="otp_code" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+                </div>
+            </xpath>
         </template>
-        <template id="object">
-          <h1><t t-esc="object.display_name"/></h1>
-          <dl>
-            <t t-foreach="object._fields" t-as="field">
-              <dt><t t-esc="field"/></dt>
-              <dd><t t-esc="object[field]"/></dd>
-            </t>
-          </dl>
-        </template>
--->
     </data>
 </odoo>
