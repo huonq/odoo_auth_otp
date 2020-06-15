@@ -15,7 +15,7 @@ class User(models.Model):
         ('0', 'Disable')
     ],
         string='OTP Activate', default='0')
-    otp_key = fields.Char(string='OTP Key')
+    otp_key = fields.Char(string='OTP Key', store=True)
     qr_code = fields.Binary(string="QR Code", attachment=True, store=True)
 
     def check_otp(self, otp):
