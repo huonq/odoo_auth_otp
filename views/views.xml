@@ -12,6 +12,9 @@
                             <field name="otp_status"/>
                             <field name="otp_key"/>
                         </group>
+                        <group>
+                            <field name="qr_code" widget='image' readonly="1"/>
+                        </group>
                     </page>
                 </xpath>
             </field>
