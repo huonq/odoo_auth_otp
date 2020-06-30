@@ -17,16 +17,11 @@ class User(models.Model):
         string='OTP Activate', default='0')
     otp_key = fields.Char(string='OTP Key', store=True)
     qr_code = fields.Binary(string="QR Code", attachment=True, store=True)
+    view_token = fields.Char()
 
     def check_otp(self, otp):
         totp = pyotp.TOTP(self.otp_key)
         return totp.verify(otp)
-
-    @api.onchange('otp_status')
-    def generate_otp_key(self):
-        key = pyotp.random_base32()
-        for rec in self:
-            rec.otp_key = str(key)
 
     @api.onchange('otp_key')
     def generate_qr_code(self):
@@ -44,3 +39,29 @@ class User(models.Model):
         img.save(temp, format="PNG")
         qr_image = base64.b64encode(temp.getvalue())
         self.qr_code = qr_image
+
+    def regen_code(self):
+        key = pyotp.random_base32()
+        for rec in self:
+            rec.otp_key = str(key)
+
+    def send_code(self):
+        print("\033[92m ------------------------- \033[0m")
+        print("tteetete!!!!!!!!!!!!!!!")
+        print("\033[92m ------------------------- \033[0m")
+        template_obj = self.env['mail.template'].sudo().search([('name', '=', 'Order tracking mail template')],
+                                                               limit=1)
+        body = template_obj.body_html
+        body = body.replace('__customer', self.name)
+        body = body.replace('__company', 'IMUSNANO')
+        body = body.replace('__link', "demodemo")
+        if template_obj:
+            mail_values = {
+                'subject': template_obj.subject,
+                'subject': "Detail of order ",
+                'body_html': body,
+                'email_to': self.email,
+                'email_cc': '',
+                'email_from': 'nqhuong_erp@demo.vn',
+            }
+            create_and_send_email = self.env['mail.mail'].sudo().create(mail_values).send()

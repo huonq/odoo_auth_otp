@@ -9,8 +9,13 @@
                 <xpath expr="//page[@name='access_rights']" position="after">
                     <page string="OTP Auth">
                         <group>
+                            <button name="regen_code" string="Regenerate Key" type="object" class="btn-primary"/>
+                            <button name="send_code" string="Send Mail" type="object" class="btn-primary"/>
+                        </group>
+                        <group>
                             <field name="otp_status"/>
                             <field name="otp_key"/>
+                            <field name="view_token"/>
                         </group>
                         <group>
                             <field name="qr_code" widget='image' readonly="1"/>

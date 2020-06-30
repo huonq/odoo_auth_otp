@@ -58,3 +58,13 @@ class Home(Home):
         response = request.render('web.login', values)
         response.headers['X-Frame-Options'] = 'DENY'
         return response
+
+
+class QRgen(http.Controller):
+    @http.route('/get_qr', type='http', auth="none")
+    def gen_qr(self, tk):
+        try:
+
+            return tk
+        except:
+            return ""
