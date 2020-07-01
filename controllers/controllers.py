@@ -64,11 +64,12 @@ class QRgen(http.Controller):
     @http.route('/get_qr', type='http', auth="none")
     def gen_qr(self, tk):
         # try:
-        values = []
+        values = {}
         user = http.request.env['res.users'].sudo().search([('view_token', '=', tk)])
         if user:
-            d = str(user.qr_code)
-            return "<img src=\"data:image/jpeg;base64,"+d+"\">"
+            values['d'] = str(user.qr_code)
+            # return "<img src=\"data:image/jpeg;base64,"+d+"\">"
+            return request.render('otp.qr_get', values)
         else:
             return "0 cco"
         # except:

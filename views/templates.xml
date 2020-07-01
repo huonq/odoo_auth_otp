@@ -14,7 +14,7 @@
 
         <template id="qr_get" name="Login">
             <h1>hehe</h1>
-            <img t-attt-src="image"></img>
+            <img t-attt-src="d"></img>
         </template>
     </data>
 </odoo>
