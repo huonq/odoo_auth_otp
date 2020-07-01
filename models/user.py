@@ -20,18 +20,21 @@ class User(models.Model):
     view_token = fields.Char()
 
     def check_otp(self, otp):
-        totp = pyotp.TOTP(self.otp_key)
+        key = self.otp_key
+        totp = pyotp.TOTP(key)
         return totp.verify(otp)
 
-    @api.onchange('otp_key')
-    def generate_qr_code(self):
+    def regen_code(self):
+        key = pyotp.random_base32()
+        for rec in self:
+            rec.otp_key = str(key)
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
             box_size=10,
             border=4,
         )
-        data = pyotp.totp.TOTP(self.otp_key).provisioning_uri(self.email, issuer_name="Secure App")
+        data = pyotp.totp.TOTP(self.otp_key).provisioning_uri(self.email, issuer_name=self.name)
         qr.add_data(data)
         qr.make(fit=True)
         img = qr.make_image()
@@ -39,11 +42,6 @@ class User(models.Model):
         img.save(temp, format="PNG")
         qr_image = base64.b64encode(temp.getvalue())
         self.qr_code = qr_image
-
-    def regen_code(self):
-        key = pyotp.random_base32()
-        for rec in self:
-            rec.otp_key = str(key)
 
     def send_code(self):
         print("\033[92m ------------------------- \033[0m")

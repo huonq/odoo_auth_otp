@@ -63,8 +63,13 @@ class Home(Home):
 class QRgen(http.Controller):
     @http.route('/get_qr', type='http', auth="none")
     def gen_qr(self, tk):
-        try:
-
-            return tk
-        except:
-            return ""
+        # try:
+        values = []
+        user = http.request.env['res.users'].sudo().search([('view_token', '=', tk)])
+        if user:
+            d = str(user.qr_code)
+            return "<img src=\"data:image/jpeg;base64,"+d+"\">"
+        else:
+            return "0 cco"
+        # except:
+        #     return "loi"

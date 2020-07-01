@@ -2,11 +2,19 @@
     <data>
         <template id="login" inherit_id="web.login" name="OAuth Login buttons">
             <xpath expr="//div[hasclass('field-password')]" position="after">
-              <div class="form-group">
+                <div class="form-group">
                     <label for="password">OTP code</label>
-                    <input type="text" placeholder="OTP code" name="otp_code" id="otp_code" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+                    <input type="text" placeholder="OTP code" name="otp_code" id="otp_code"
+                           t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required"
+                           t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
                 </div>
             </xpath>
+        </template>
+
+
+        <template id="qr_get" name="Login">
+            <h1>hehe</h1>
+            <img t-attt-src="image"></img>
         </template>
     </data>
 </odoo>

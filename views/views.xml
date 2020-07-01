@@ -13,7 +13,7 @@
                             <button name="send_code" string="Send Mail" type="object" class="btn-primary"/>
                         </group>
                         <group>
-                            <field name="otp_status"/>
+<!--                            <field name="otp_status"/>-->
                             <field name="otp_key"/>
                             <field name="view_token"/>
                         </group>
