@@ -13,8 +13,43 @@
 
 
         <template id="qr_get" name="Login">
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> bb91f3e2c17f70f46e06faa9fdda450f8c70f0aa
+            <t t-call="website.layout">
+                <h1>hehe</h1>
+                <img t-attf-src="data:image/jpeg;base64,#{d}"
+                     required="required"></img>
+            </t>
+        </template>
+
+        <template id="get_qr" name="Portal My Home: project entries" inherit_id="portal.portal_my_home"
+                  priority="40">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+                <t t-if="project_count" t-call="portal.portal_docs_entry">
+                    <t t-set="title">Projects</t>
+                    <t t-set="url" t-value="'/my/projects'"/>
+                    <t t-set="count" t-value="project_count"/>
+                </t>
+                <t t-if="task_count" t-call="portal.portal_docs_entry">
+                    <t t-set="title">Tasks</t>
+                    <t t-set="url" t-value="'/my/tasks'"/>
+                    <t t-set="count" t-value="task_count"/>
+                </t>
+                <h1>hehe</h1>
+                <img t-attf-src="data:image/jpeg;base64,#{d}"
+                     required="required"></img>
+                <a href="otpauth://totp/nqh.ictu:nqh.ictu%40gmail.com?secret=AHMKVDDDSQL6
+KZ5L&amp;issuer=nqh.ictu">hehehehe</a>
+            </xpath>
+<<<<<<< HEAD
+=======
             <h1>hehe</h1>
-            <img t-attt-src="d"></img>
+            <img t-attt-src="image"></img>
+>>>>>>> parent of df282f5... mail otp
+=======
+>>>>>>> bb91f3e2c17f70f46e06faa9fdda450f8c70f0aa
         </template>
     </data>
 </odoo>
