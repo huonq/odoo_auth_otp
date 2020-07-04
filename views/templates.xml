@@ -14,6 +14,9 @@
 
         <template id="qr_get" name="Login">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> bb91f3e2c17f70f46e06faa9fdda450f8c70f0aa
             <t t-call="website.layout">
                 <h1>hehe</h1>
                 <img t-attf-src="data:image/jpeg;base64,#{d}"
@@ -40,10 +43,13 @@
                 <a href="otpauth://totp/nqh.ictu:nqh.ictu%40gmail.com?secret=AHMKVDDDSQL6
 KZ5L&amp;issuer=nqh.ictu">hehehehe</a>
             </xpath>
+<<<<<<< HEAD
 =======
             <h1>hehe</h1>
             <img t-attt-src="image"></img>
 >>>>>>> parent of df282f5... mail otp
+=======
+>>>>>>> bb91f3e2c17f70f46e06faa9fdda450f8c70f0aa
         </template>
     </data>
 </odoo>
