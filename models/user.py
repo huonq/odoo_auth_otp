@@ -41,6 +41,9 @@ class User(models.Model):
         temp = BytesIO()
         img.save(temp, format="PNG")
         qr_image = base64.b64encode(temp.getvalue())
+        print("\033[92m ------------------------- \033[0m")
+        print(qr_image)
+        print("\033[92m ------------------------- \033[0m")
         self.qr_code = qr_image
 
     def send_code(self):

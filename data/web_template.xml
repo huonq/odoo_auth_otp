@@ -1,0 +1,39 @@
+<odoo>
+
+    <record id="tracking" model="ir.ui.view">
+        <field name="name">Tra cứu đơn hàng</field>
+        <field name="type">qweb</field>
+        <field name="key">website.order_tracking</field>
+        <field name="arch" type="xml">
+            <t name="Contact Us" t-name="website.contactus">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <section class="pt24 pb24">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-8 offset-lg-2">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h2>Your QR Code:</h2>
+                                                <img t-attf-src="data:image/jpeg;base64,#{d}"
+                                                     required="required"></img>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+
+    <record id="tracking_page" model="website.page">
+        <field name="is_published">True</field>
+        <field name="url">/get_qr</field>
+        <field name="view_id" ref="tracking"/>
+        <field name="track">True</field>
+    </record>
+
+</odoo>

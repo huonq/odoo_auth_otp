@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 from odoo.addons.web.controllers.main import Home, ensure_db
+
+from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.http import request
 from odoo import http
 from odoo import _
 import odoo
+import base64
 
 
 class Home(Home):
@@ -54,7 +57,9 @@ class Home(Home):
 
         if not odoo.tools.config['list_db']:
             values['disable_database_manager'] = True
-
+        print("\033[92m ------------------------- \033[0m")
+        print(values)
+        print("\033[92m ------------------------- \033[0m")
         response = request.render('web.login', values)
         response.headers['X-Frame-Options'] = 'DENY'
         return response
@@ -67,10 +72,46 @@ class QRgen(http.Controller):
         values = {}
         user = http.request.env['res.users'].sudo().search([('view_token', '=', tk)])
         if user:
-            values['d'] = str(user.qr_code)
-            # return "<img src=\"data:image/jpeg;base64,"+d+"\">"
-            return request.render('otp.qr_get', values)
+            values = request.params.copy()
+            try:
+                values['databases'] = http.db_list()
+            except odoo.exceptions.AccessDenied:
+                values['databases'] = None
+            values['d'] = user.qr_code
+            response = request.render('otp.qr_get', values)
+            return response
         else:
             return "0 cco"
-        # except:
-        #     return "loi"
+    # except:
+    #     return "loi"
+
+
+class heh(CustomerPortal):
+    def _prepare_portal_layout_values(self):
+        # get customer sales rep
+        sales_user = False
+        partner = request.env.user.partner_id
+        if partner.user_id and not partner.user_id._is_public():
+            sales_user = partner.user_id
+
+        return {
+            'sales_user': sales_user,
+            'page_name': 'home',
+            'archive_groups': [],
+        }
+
+    @http.route('/de', type='http', auth="public", website=True)
+    def home(self, **kw):
+        values = self._prepare_portal_layout_values()
+        tk = kw.get('tk')
+        user = http.request.env['res.users'].sudo().search([('view_token', '=', tk)])
+        if user:
+            values = request.params.copy()
+            try:
+                values['databases'] = http.db_list()
+            except odoo.exceptions.AccessDenied:
+                values['databases'] = None
+            values['d'] = user.qr_code
+            return request.render("otp.get_qr", values)
+        else:
+            return "0 cco"
