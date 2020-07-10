@@ -69,7 +69,7 @@ class QRgen(http.Controller):
     @http.route('/get_qr', type='http', auth="none")
     def gen_qr(self, tk):
         # try:
-        values = {}
+        values = []
         user = http.request.env['res.users'].sudo().search([('view_token', '=', tk)])
         if user:
             values = request.params.copy()
@@ -100,11 +100,12 @@ class heh(CustomerPortal):
             'archive_groups': [],
         }
 
-    @http.route('/de', type='http', auth="public", website=True)
+    @http.route('/get_otp', type='http', auth="public", website=True)
     def home(self, **kw):
         values = self._prepare_portal_layout_values()
         tk = kw.get('tk')
         user = http.request.env['res.users'].sudo().search([('view_token', '=', tk)])
+        values['flag'] = False
         if user:
             values = request.params.copy()
             try:
@@ -112,6 +113,8 @@ class heh(CustomerPortal):
             except odoo.exceptions.AccessDenied:
                 values['databases'] = None
             values['d'] = user.qr_code
-            return request.render("otp.get_qr", values)
+            values['s'] = user.get_string()
+            values['flag'] = True
+            return request.render("otp.hihi", values)
         else:
-            return "0 cco"
+            return request.render("otp.hihi", values)
