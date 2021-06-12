@@ -81,7 +81,7 @@ class QRgen(http.Controller):
             response = request.render('otp.qr_get', values)
             return response
         else:
-            return "0 cco"
+            return "Empty"
     # except:
     #     return "loi"
 
@@ -115,6 +115,6 @@ class heh(CustomerPortal):
             values['d'] = user.qr_code
             values['s'] = user.get_string()
             values['flag'] = True
-            return request.render("otp.hihi", values)
+            return request.render("otp.get_qr", values)
         else:
-            return request.render("otp.hihi", values)
+            return request.render("otp.get_qr", values)
