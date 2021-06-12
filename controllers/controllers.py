@@ -68,22 +68,22 @@ class Home(Home):
 class QRgen(http.Controller):
     @http.route('/get_qr', type='http', auth="none")
     def gen_qr(self, tk):
-        # try:
-        values = []
-        user = http.request.env['res.users'].sudo().search([('view_token', '=', tk)])
-        if user:
-            values = request.params.copy()
-            try:
-                values['databases'] = http.db_list()
-            except odoo.exceptions.AccessDenied:
-                values['databases'] = None
-            values['d'] = user.qr_code
-            response = request.render('otp.qr_get', values)
-            return response
-        else:
-            return "Empty"
-    # except:
-    #     return "loi"
+        try:
+            values = []
+            user = http.request.env['res.users'].sudo().search([('view_token', '=', tk)])
+            if user:
+                values = request.params.copy()
+                try:
+                    values['databases'] = http.db_list()
+                except odoo.exceptions.AccessDenied:
+                    values['databases'] = None
+                values['d'] = user.qr_code
+                response = request.render('otp.qr_get', values)
+                return response
+            else:
+                return "Empty"
+        except:
+            return "Error!"
 
 
 class heh(CustomerPortal):
