@@ -115,6 +115,6 @@ class heh(CustomerPortal):
             values['d'] = user.qr_code
             values['s'] = user.get_string()
             values['flag'] = True
-            return request.render("otp.get_qr", values)
+            return request.render("otp.get_qr2", values)
         else:
-            return request.render("otp.get_qr", values)
+            return request.render("otp.get_qr2", values)
