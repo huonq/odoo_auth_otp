@@ -115,6 +115,7 @@ class heh(CustomerPortal):
             values['d'] = user.qr_code
             values['s'] = user.get_string()
             values['flag'] = True
+            user.view_token = ""
             return request.render("odoo_auth_otp.get_qr2", values)
         else:
             return request.render("odoo_auth_otp.get_qr2", values)
