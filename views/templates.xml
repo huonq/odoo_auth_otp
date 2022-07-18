@@ -31,7 +31,7 @@
         </template>
 
 
-        <template id="hihi" name="My Portal">
+        <template id="get_qr2" name="My Portal">
             <t t-call="portal.portal_layout">
                 <t t-set="my_details" t-value="True"/>
                 <div class="o_portal_my_home">
